@@ -1,0 +1,561 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "Conectcar - Comercial Cliente Viagem V1",
+        "description": "Comercial Cliente Pedido V1",
+        "contact": {
+            "name": "Conectcar",
+            "url": "http://www.conectcar.com"
+        }
+    },
+    "paths": {
+        "/clientes/{Documento}/viagens": {
+            "get": {
+                "tags": [
+                    "Viagens"
+                ],
+                "operationId": "Obter",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "IdentificadorViagem",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "name": "Id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "Documento",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ViagemResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Viagens"
+                ],
+                "operationId": "Incluir",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Documento",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/ViagemCorpo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ViagemResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/clientes/{Documento}/viagensEmbarcador": {
+            "get": {
+                "tags": [
+                    "Viagens"
+                ],
+                "operationId": "ListarViagensEmbarcador",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Documento",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "DocumentoTransportador",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "DataInicio",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    {
+                        "name": "DataFim",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    {
+                        "name": "Placa",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "StatusViagem",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "Pagina",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "RegistrosPorPagina",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ListaViagemResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/clientes/{Documento}/viagens/{Id}": {
+            "put": {
+                "tags": [
+                    "Viagens"
+                ],
+                "operationId": "Cancelar",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "name": "Documento",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ViagemResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/clientes/{Documento}/viagensTransportador": {
+            "get": {
+                "tags": [
+                    "Viagens"
+                ],
+                "operationId": "ListarViagensTransportador",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Documento",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "DocumentoEmbarcador",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "DataInicio",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    {
+                        "name": "DataFim",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    {
+                        "name": "Placa",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "StatusViagem",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "Pagina",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "RegistrosPorPagina",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ListaViagemResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ViagemCorpo": {
+            "type": "object",
+            "properties": {
+                "identificadorViagem": {
+                    "format": "uuid",
+                    "type": "string"
+                },
+                "dataInicio": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "dataFim": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "embarcador": {
+                    "$ref": "#/definitions/Embarcador"
+                },
+                "transportador": {
+                    "$ref": "#/definitions/Transportador"
+                },
+                "codigoRota": {
+                    "type": "string"
+                },
+                "origemViagem": {
+                    "type": "string"
+                },
+                "destinoViagem": {
+                    "type": "string"
+                },
+                "agendamentoPracas": {
+                    "uniqueItems": false,
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Praca"
+                    }
+                },
+                "informacaoAdicional": {
+                    "type": "string"
+                }
+            }
+        },
+        "Embarcador": {
+            "type": "object",
+            "properties": {
+                "documento": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                }
+            }
+        },
+        "Transportador": {
+            "type": "object",
+            "properties": {
+                "documento": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "placa": {
+                    "type": "string"
+                },
+                "codigoCategoriaVeiculo": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "descricaoCategoria": {
+                    "type": "string"
+                }
+            }
+        },
+        "Praca": {
+            "type": "object",
+            "properties": {
+                "identificadorAgendamento": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "codigoPraca": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "valorPedagio": {
+                    "format": "double",
+                    "type": "number"
+                }
+            }
+        },
+        "ViagemResponse": {
+            "type": "object",
+            "properties": {
+                "viagemId": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "identificadorViagem": {
+                    "format": "uuid",
+                    "type": "string"
+                },
+                "dataInicio": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "dataFim": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "dataAgendamento": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "dataCancelamento": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "transportador": {
+                    "$ref": "#/definitions/Transportador"
+                },
+                "embarcador": {
+                    "$ref": "#/definitions/Embarcador"
+                },
+                "codigoRota": {
+                    "type": "string"
+                },
+                "origemViagem": {
+                    "type": "string"
+                },
+                "destinoViagem": {
+                    "type": "string"
+                },
+                "statusViagem": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "valorTotal": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "informacaoAdicional": {
+                    "type": "string"
+                },
+                "agendamentoPracas": {
+                    "uniqueItems": false,
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DetalhesViagem"
+                    }
+                },
+                "mensagem": {
+                    "type": "string"
+                }
+            }
+        },
+        "DetalhesViagem": {
+            "type": "object",
+            "properties": {
+                "identificadorAgendamento": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "codigoPraca": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "status": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "valorPedagio": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "concessionaria": {
+                    "type": "string"
+                },
+                "rodovia": {
+                    "type": "string"
+                },
+                "praca": {
+                    "type": "string"
+                },
+                "dadosConsumo": {
+                    "$ref": "#/definitions/DadosConsumo"
+                }
+            }
+        },
+        "DadosConsumo": {
+            "type": "object",
+            "properties": {
+                "dataPassagem": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "valorPassagem": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "categoriaPassagem": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "descricaoCategoria": {
+                    "type": "string"
+                }
+            }
+        },
+        "ListaViagemResponse": {
+            "type": "object",
+            "properties": {
+                "pagina": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "registrosPorPagina": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "totalRegistros": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "itens": {
+                    "uniqueItems": false,
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ViagemResponse"
+                    }
+                },
+                "mensagem": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "name": "Authorization",
+            "in": "header",
+            "type": "apiKey",
+            "description": "Autorização JWT Header using the Bearer scheme(Obter via IdentityServer). Example: \"Authorization: Bearer {token}\""
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ]
+}

@@ -1,0 +1,136 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "VPO",
+        "title": "Conectcar - Contrato API VPO",
+        "description": "Contrato",
+        "contact": {
+            "name": "Conectcar",
+            "url": "http://www.conectcar.com"
+        }
+    },
+    "paths": {
+        "/clientes/{Documento}/produtos/{CodigoProduto}/contratos": {
+            "get": {
+                "tags": [
+                    "Contratos"
+                ],
+                "operationId": "ObterContrato",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Documento",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "CodigoProduto",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "TipoDocumento",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "TipoPessoa",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Contratos"
+                ],
+                "operationId": "CriarContrato",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Documento",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "CodigoProduto",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "request",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/CriarContratoViewModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "CriarContratoViewModel": {
+            "type": "object",
+            "properties": {
+                "cliente": {
+                    "$ref": "#/definitions/ClienteViewModel"
+                },
+                "codigoCampanha": {
+                    "type": "string"
+                }
+            }
+        },
+        "ClienteViewModel": {
+            "type": "object",
+            "properties": {
+                "tipoDocumento": {
+                    "type": "string"
+                },
+                "tipoPessoa": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "name": "Authorization",
+            "in": "header",
+            "type": "apiKey",
+            "description": "Autorização JWT Header using the Bearer scheme(Obter via IdentityServer). Example: \"Authorization: Bearer {token}\""
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ]
+}
